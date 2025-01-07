@@ -1,34 +1,36 @@
+"use client"
+import { createContext, useContext, useState } from "react";
 
-"use client";
-import React, { createContext, useContext, useState } from "react";
-
-// Create Context
 const NotificationContext = createContext();
 
-// Create a provider component
 export const NotificationProvider = ({ children }) => {
-  const [notificationCount, setNotificationCount] = useState(0);
+  const [clickedPosts, setClickedPosts] = useState([]);
 
-  // Function to increment notification count
-  const incrementNotification = () => {
-    setNotificationCount((prevCount) => prevCount + 1);
+  const notificationCount = clickedPosts.length;
+  const incrementNotification = (title) => {
+    if (!clickedPosts.includes(title)) {
+      setClickedPosts((prev) => [...prev, title]);
+    }
   };
 
-  // Function to reset notification count
-  const resetNotification = () => {
-    setNotificationCount(0);
+  const removePost = (title) => {
+    setClickedPosts((prev) => prev.filter((post) => post !== title));
   };
 
   return (
     <NotificationContext.Provider
-      value={{ notificationCount, incrementNotification, resetNotification }}
+      value={{
+        clickedPosts,
+        notificationCount,
+        incrementNotification,
+        removePost,
+      }}
     >
       {children}
     </NotificationContext.Provider>
   );
 };
 
-// Custom hook to use notification context
 export const useNotification = () => {
   return useContext(NotificationContext);
 };

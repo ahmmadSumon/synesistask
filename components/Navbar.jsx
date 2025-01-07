@@ -25,7 +25,7 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
  const { notificationCount } = useNotification(); 
 
-console.log(notificationCount); // Check if this prints the correct count value
+console.log(notificationCount); 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,23 +49,32 @@ console.log(notificationCount); // Check if this prints the correct count value
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      {/* Logo Section */}
+      
       <div className="relative top-[20px] md:-left-[40px] gap-0">
         <Link href="/">
           <Image src="/images/logo.png" alt="synesis logo" width={300} height={100} />
         </Link>
       </div>
 
-      {/* Navigation Links for Desktop */}
+   
       <div className="hidden lg:flex justify-center items-center">
+        <Link href="/readpost">
         <BellCounter />
+        </Link>
+      
         <div className="flex gap-[12px]">
-          <div className="px-[44.75px] py-[8px] text-sm text-black rounded-xl border-[1px] border-[#767676] bg-[#E3E3E3]">
-            Sign In
-          </div>
-          <div className="px-[44.75px] py-[8px] text-sm text-white rounded-xl bg-[#2C2C2C]">
-            Register
-          </div>
+        <Link href="/">
+  <div className="px-[44.75px] py-[8px] text-sm text-black rounded-xl border-[1px] border-[#767676] bg-[#E3E3E3] transition-transform duration-300 ease-in-out transform hover:scale-105 hover:bg-[#d1d1d1] hover:border-[#767676]">
+    Sign In
+  </div>
+</Link>
+
+<Link href="/">
+  <div className="px-[44.75px] py-[8px] text-sm text-white rounded-xl bg-[#2C2C2C] transition-transform duration-300 ease-in-out transform hover:scale-105 hover:bg-[#444444]">
+    Register
+  </div>
+</Link>
+
         </div>
       </div>
 
@@ -101,21 +110,21 @@ console.log(notificationCount); // Check if this prints the correct count value
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuLink asChild>
-                    <Link href="/about" className="text-lg text-gray-800 hover:text-black">
+                    <Link href="/" className="text-lg text-gray-800 hover:text-black">
                       About Us
                     </Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuLink asChild>
-                    <Link href="/services" className="text-lg text-gray-800 hover:text-black">
+                    <Link href="/" className="text-lg text-gray-800 hover:text-black">
                       Services
                     </Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuLink asChild>
-                    <Link href="/contact" className="text-lg text-gray-800 hover:text-black">
+                    <Link href="/" className="text-lg text-gray-800 hover:text-black">
                       Contact
                     </Link>
                   </NavigationMenuLink>
@@ -124,12 +133,16 @@ console.log(notificationCount); // Check if this prints the correct count value
             </NavigationMenu>
             <div className="mt-6">
               <div className="flex gap-4">
+                <Link href="/">
                 <button className="w-full px-4 py-2 text-sm text-black rounded-xl border-[1px] border-[#767676] bg-[#E3E3E3]">
                   Sign In
                 </button>
+                </Link>
+                <Link href="/">
                 <button className="w-full px-4 py-2 text-sm text-white rounded-xl bg-[#2C2C2C]">
                   Register
                 </button>
+                </Link>
               </div>
             </div>
           </SheetContent>

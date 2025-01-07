@@ -3,11 +3,11 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { NotificationProvider } from "./context/NotificationContext";
 
-// Importing the Roboto font
+
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
-  weight: ["400", "500", "700"], // Add the weights you need
+  weight: ["400", "500","600" ,"700"],
 });
 
 export const metadata = {

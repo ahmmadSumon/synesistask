@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "./SearchBar";
 import BlogCard from "./BlogCard";
 
@@ -7,19 +8,19 @@ const Posts = () => {
   const [blogs, setBlogs] = useState([]);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1); // Track the current page for pagination
-  const [hasMore, setHasMore] = useState(true); // To know if there are more blogs to load
+  const [page, setPage] = useState(1); 
+  const [hasMore, setHasMore] = useState(true);load
 
-  // Function to fetch blogs with pagination
+ 
   const fetchBlogs = async () => {
     try {
       const response = await fetch(`https://jsonplaceholder.org/posts?_page=${page}&_limit=10`);
       const data = await response.json();
       if (data.length > 0) {
-        setBlogs((prevBlogs) => [...prevBlogs, ...data]); // Append new blogs to the list
-        setFilteredBlogs((prevBlogs) => [...prevBlogs, ...data]); // Same for filtered blogs
+        setBlogs((prevBlogs) => [...prevBlogs, ...data]); 
+        setFilteredBlogs((prevBlogs) => [...prevBlogs, ...data]); 
       } else {
-        setHasMore(false); // No more blogs to load
+        setHasMore(false); 
       }
       setLoading(false);
     } catch (error) {
@@ -28,48 +29,30 @@ const Posts = () => {
     }
   };
 
-  // Call fetchBlogs on page load and when the page number changes
+  
   useEffect(() => {
     fetchBlogs();
   }, [page]);
 
-  // Handle search functionality
+
   const handleSearch = (searchTerm) => {
     const filtered = blogs.filter((blog) => {
-      const title = blog.title || ""; // Fallback to empty string if undefined
-      const body = blog.body || "";   // Fallback to empty string if undefined
+      const title = blog.title || ""; 
+      const content = blog.content || "";   
 
       return (
         title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        body.toLowerCase().includes(searchTerm.toLowerCase())
+        content.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
 
-    setFilteredBlogs(filtered); // Update filtered blogs
+    setFilteredBlogs(filtered); 
   };
-
-  // Handle scroll event to load more blogs when the user scrolls to the bottom
-  const handleScroll = () => {
-    // Check if the user has scrolled to the bottom of the page
-    const bottom = document.documentElement.scrollHeight === document.documentElement.scrollTop + window.innerHeight;
-    if (bottom && hasMore && !loading) {
-      setPage((prevPage) => prevPage + 1); // Increment the page number to load more
-      setLoading(true); // Set loading to true while fetching new posts
-    }
-  };
-
-  // Add scroll event listener
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll); // Cleanup listener on unmount
-    };
-  }, [hasMore, loading]);
 
   return (
     <div className="max-w-full md:max-w-[1884px] sm:px-16 mx-auto mt-44 md:mt-36">
-      {/* Header Section */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      
+      <div className="flex flex-col xl:flex-row items-center justify-between gap-4">
         <div>
           <h2 className="text-[28px] md:text-[64px] font-bold text-center sm:text-left">
             Placeholder Posts
@@ -80,24 +63,23 @@ const Posts = () => {
         </div>
       </div>
 
-      {/* Blog List */}
-      <div className="blog-list grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-12 mt-8 md:mt-20">
-        {loading && page === 1 ? (
-          <div className="text-center col-span-full">Loading...</div>
-        ) : (
-          filteredBlogs.map((blog, index) => (
+     
+      <InfiniteScroll
+        dataLength={filteredBlogs.length} 
+        next={() => setPage((prevPage) => prevPage + 1)}scrolls down
+        hasMore={hasMore}
+        loader={<div className="text-center col-span-full">Loading...</div>}
+        endMessage={<div className="text-center col-span-full">No more blogs to load.</div>}
+      >
+        <div className="blog-list grid grid-cols-1 gap-6 2xl:grid-cols-2 md:gap-12 mt-8 md:mt-20">
+          {filteredBlogs.map((blog, index) => (
             <BlogCard
-              key={`${blog.id}-${index}`} // Unique key combining id and index
+              key={`${blog.id}-${index}`} 
               blog={blog}
             />
-          ))
-        )}
-      </div>
-
-      {/* Loader when fetching new posts */}
-      {loading && page > 1 && (
-        <div className="text-center col-span-full mt-4">Loading more...</div>
-      )}
+          ))}
+        </div>
+      </InfiniteScroll>
     </div>
   );
 };

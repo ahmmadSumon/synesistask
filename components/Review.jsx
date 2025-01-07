@@ -34,8 +34,6 @@ const ReviewSection = () => {
     },
   ];
   
-
-  // Function to render stars dynamically
   const renderStars = (stars) => {
     return Array.from({ length: 5 }, (_, index) => (
       <span key={index} className={index < stars ? "text-yellow-400" : "text-gray-300"}>
@@ -50,17 +48,17 @@ const ReviewSection = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {reviews.map((review, index) => (
           <div key={index} className="w-full md:w-[580px] h-auto border-[1px] border-[#D9D9D9] p-6">
-            {/* Stars and Title */}
+           
             <div className=" mb-4">
               <div className="flex">{renderStars(review.stars)}</div>
               <h4 className="text-lg font-semibold">{review.title}</h4>
               <p className="text-sm text-gray-700">{review.commentText}</p>
             </div>
 
-            {/* Profile and Info */}
+            
             <div className="flex items-center mb-4 ">
               <Image
-                src={review.profilePic || "/default-profile.png"} // Fallback to default image
+                src={review.profilePic || "/default-profile.png"} 
                 alt={`${review.name}'s profile`}
                 width={40}
                 height={40}
@@ -72,7 +70,7 @@ const ReviewSection = () => {
               </div>
             </div>
 
-            {/* Review Text */}
+           
            
           </div>
         ))}

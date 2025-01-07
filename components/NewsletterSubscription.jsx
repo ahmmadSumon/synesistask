@@ -5,12 +5,12 @@ const NewsletterSubscription = () => {
   return (
     <div className=" mt-10 py-12 px-6">
       <div className="max-w-[800px] mx-auto text-center">
-        {/* Header */}
+        
         <h2 className="text-3xl font-bold mb-4">Follow the latest trends</h2>
         <p className="text-gray-600 mb-8"> With our daily newslette
         </p>
         
-        {/* Subscription Form */}
+  
         <div className="flex  sm:flex-row items-center justify-center gap-4">
           <input
             type="email"
