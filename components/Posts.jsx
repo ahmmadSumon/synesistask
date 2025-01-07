@@ -9,7 +9,7 @@ const Posts = () => {
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1); 
-  const [hasMore, setHasMore] = useState(true);load
+  const [hasMore, setHasMore] = useState(true);
 
  
   const fetchBlogs = async () => {
