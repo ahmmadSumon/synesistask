@@ -29,7 +29,7 @@ const truncateText = (text, maxWords) => {
   
       return (
         <>
-          <div className="flex flex-col md:flex-row justify-around w-full  md:max-w-[1800px] md:ml-[69px]  md:mr-[45px] md:mt-36 mx-auto">
+          <div className="flex flex-col md:flex-row justify-around w-full  md:max-w-[1800px] md:ml-[69px]  md:mr-[45px] mt-36 mx-auto">
             <div className="h-[400px] md:h-[720px] max-w-full md:max-w-[1038px] rounded-[10px] overflow-hidden">
               <Image
                 alt="Blog Thumbnail"

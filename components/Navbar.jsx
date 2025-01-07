@@ -45,14 +45,14 @@ console.log(notificationCount);
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 h-[120px] mx-1 bg-white md:ml-[69px] md:mr-[45px] max-w-[1884px] mx-auto flex justify-between items-center border-b-[1px] border-[#DBD7D7] transition-transform duration-300 z-50 ${
+      className={`fixed top-0 left-0 right-0 h-[120px]  bg-white md:ml-[69px] md:mr-[45px] max-w-[1884px] mx-auto flex justify-between items-center border-b-[1px] border-[#DBD7D7] transition-transform duration-300 z-50 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
       
       <div className="relative top-[20px] md:-left-[40px] gap-0">
         <Link href="/">
-          <Image src="/images/logo.png" alt="synesis logo" width={300} height={100} />
+          <Image src="/images/logo.png" alt="synesis logo" width={300} height={150} />
         </Link>
       </div>
 
@@ -81,7 +81,7 @@ console.log(notificationCount);
       {/* Mobile Menu */}
       <div className="lg:hidden flex relative justify-center items-center gap-5">
         <Sheet>
-          <Image src="/images/Icon.png" alt="notification icon" width={21.33} height={26.67} 
+          <Image src="/images/Icon.png" alt="notification icon" width={18} height={18} 
           
           />
           {notificationCount > 0 && (
@@ -90,8 +90,8 @@ console.log(notificationCount);
           </span>
         )}
           <SheetTrigger asChild>
-            <button className="p-2 h-[40px] w-[40px] text-black rounded-md focus:outline-none">
-              <GiHamburgerMenu />
+            <button className="p-2 mr-3 h-[40px] w-[40px] text-black rounded-md focus:outline-none">
+              <GiHamburgerMenu size={24}/>
             </button>
           </SheetTrigger>
           <SheetContent side="left" className="w-[300px]">
