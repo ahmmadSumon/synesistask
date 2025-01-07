@@ -4,12 +4,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "./SearchBar";
 import BlogCard from "./BlogCard";
 import Link from "next/link";
+import { motion } from "framer-motion"; // Importing motion for animation
 
 const Posts = () => {
   const [blogs, setBlogs] = useState([]); // All blogs fetched
   const [filteredBlogs, setFilteredBlogs] = useState([]); // Blogs after filtering
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1); 
+  const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [searchTerm, setSearchTerm] = useState(""); // Track search term
   const [initialFetch, setInitialFetch] = useState(false); // Prevent re-fetching when going back
@@ -42,17 +43,16 @@ const Posts = () => {
 
   // Handle search functionality
   const handleSearch = (searchTerm) => {
-   
     const filtered = blogs.filter((blog) => {
-      const title = blog.title || ""; 
-      const content = blog.content || "";   
+      const title = blog.title || "";
+      const content = blog.content || "";
       return (
         title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         content.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
-    setFilteredBlogs(filtered); 
-    setSearchTerm(searchTerm); 
+    setFilteredBlogs(filtered);
+    setSearchTerm(searchTerm);
   };
 
   // Handle the "Go back" link
@@ -64,11 +64,15 @@ const Posts = () => {
   return (
     <div className="max-w-full md:max-w-[1884px] sm:px-16 mx-auto mt-44 md:mt-36">
       <div className="flex flex-col xl:flex-row items-center justify-between gap-4">
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: -20 }} // Starting position and opacity
+          animate={{ opacity: 1, y: 0 }} // Final position and opacity
+          transition={{ duration: 0.5 }} // Animation duration
+        >
           <h2 className="text-[28px] md:text-[64px] font-bold text-center sm:text-left">
             Placeholder Posts
           </h2>
-        </div>
+        </motion.div>
         <div className="w-full sm:w-auto">
           <SearchBar onSearch={handleSearch} />
         </div>
@@ -87,14 +91,26 @@ const Posts = () => {
             <>
               <div className="text-center text-2xl">No search results found.</div>
               <Link href="/">
-                <div onClick={handleGoBack} className="text-center cursor-pointer text-blue-500 text-2xl">
+                <motion.div
+                  onClick={handleGoBack}
+                  className="text-center cursor-pointer text-blue-500 text-2xl"
+                  whileHover={{ scale: 1.1 }} // Hover effect
+                  whileTap={{ scale: 0.95 }} // Tap effect
+                >
                   Go back
-                </div>
+                </motion.div>
               </Link>
             </>
           ) : (
             filteredBlogs.map((blog, index) => (
-              <BlogCard key={`${blog.id}-${index}`} blog={blog} />
+              <motion.div
+                key={`${blog.id}-${index}`}
+                initial={{ opacity: 0, y: 20 }} // Initial state for animation
+                animate={{ opacity: 1, y: 0 }} // Final state for animation
+                transition={{ duration: 0.5, delay: index * 0.1 }} // Delay for staggered effect
+              >
+                <BlogCard blog={blog} />
+              </motion.div>
             ))
           )}
         </div>
